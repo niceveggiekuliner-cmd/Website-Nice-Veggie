@@ -235,16 +235,34 @@
     </div>
 
     <script>
-        // === DATABASE LOKAL (Menyimpan data di browser agar tidak hilang saat direfresh) ===
+        // === DATABASE LOKAL (IndexedDB agar data & foto tidak hilang walau browser ditutup lama) ===
+        const initDB = () => {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open("NiceVeggieDB", 1);
+                request.onupgradeneeded = (e) => {
+                    const idb = e.target.result;
+                    if (!idb.objectStoreNames.contains("menus")) {
+                        idb.createObjectStore("menus", { keyPath: "id" });
+                    }
+                };
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        };
+
         const db = {
             collection: function (colName) {
                 return {
                     add: async function (data) {
-                        let items = JSON.parse(localStorage.getItem(colName)) || [];
+                        const idb = await initDB();
                         let id = "doc_" + Date.now();
-                        items.push({ id: id, data: data });
-                        localStorage.setItem(colName, JSON.stringify(items));
-                        return { id: id };
+                        return new Promise((resolve, reject) => {
+                            const tx = idb.transaction(colName, "readwrite");
+                            const store = tx.objectStore(colName);
+                            const request = store.add({ id: id, data: data });
+                            request.onsuccess = () => resolve({ id: id });
+                            request.onerror = () => reject(request.error);
+                        });
                     },
                     orderBy: function (field, direction) {
                         this._orderByField = field;
@@ -252,39 +270,63 @@
                         return this;
                     },
                     get: async function () {
-                        let items = JSON.parse(localStorage.getItem(colName)) || [];
-                        if (this._orderByField) {
-                            items.sort((a, b) => {
-                                let valA = a.data[this._orderByField];
-                                let valB = b.data[this._orderByField];
-                                if (this._orderByDir === "asc") return valA > valB ? 1 : -1;
-                                return valA < valB ? 1 : -1;
-                            });
-                        }
-                        return {
-                            empty: items.length === 0,
-                            forEach: function (callback) {
-                                items.forEach(item => {
-                                    callback({ id: item.id, data: () => item.data });
+                        const idb = await initDB();
+                        return new Promise((resolve, reject) => {
+                            const tx = idb.transaction(colName, "readonly");
+                            const store = tx.objectStore(colName);
+                            const request = store.getAll();
+                            request.onsuccess = () => {
+                                let items = request.result || [];
+                                if (this._orderByField) {
+                                    items.sort((a, b) => {
+                                        let valA = a.data[this._orderByField];
+                                        let valB = b.data[this._orderByField];
+                                        if (this._orderByDir === "asc") return valA > valB ? 1 : -1;
+                                        return valA < valB ? 1 : -1;
+                                    });
+                                }
+                                resolve({
+                                    empty: items.length === 0,
+                                    forEach: function (callback) {
+                                        items.forEach(item => {
+                                            callback({ id: item.id, data: () => item.data });
+                                        });
+                                    },
+                                    docs: items.map(item => ({ id: item.id, data: () => item.data }))
                                 });
-                            },
-                            docs: items.map(item => ({ id: item.id, data: () => item.data }))
-                        };
+                            };
+                            request.onerror = () => reject(request.error);
+                        });
                     },
                     doc: function (docId) {
                         return {
                             update: async function (newData) {
-                                let items = JSON.parse(localStorage.getItem(colName)) || [];
-                                let idx = items.findIndex(i => i.id === docId);
-                                if (idx > -1) {
-                                    items[idx].data = { ...items[idx].data, ...newData };
-                                    localStorage.setItem(colName, JSON.stringify(items));
-                                }
+                                const idb = await initDB();
+                                return new Promise((resolve, reject) => {
+                                    const tx = idb.transaction(colName, "readwrite");
+                                    const store = tx.objectStore(colName);
+                                    const getReq = store.get(docId);
+                                    getReq.onsuccess = () => {
+                                        let item = getReq.result;
+                                        if (item) {
+                                            item.data = { ...item.data, ...newData };
+                                            const putReq = store.put(item);
+                                            putReq.onsuccess = () => resolve();
+                                            putReq.onerror = () => reject(putReq.error);
+                                        } else resolve();
+                                    };
+                                    getReq.onerror = () => reject(getReq.error);
+                                });
                             },
                             delete: async function () {
-                                let items = JSON.parse(localStorage.getItem(colName)) || [];
-                                items = items.filter(i => i.id !== docId);
-                                localStorage.setItem(colName, JSON.stringify(items));
+                                const idb = await initDB();
+                                return new Promise((resolve, reject) => {
+                                    const tx = idb.transaction(colName, "readwrite");
+                                    const store = tx.objectStore(colName);
+                                    const req = store.delete(docId);
+                                    req.onsuccess = () => resolve();
+                                    req.onerror = () => reject(req.error);
+                                });
                             }
                         };
                     }

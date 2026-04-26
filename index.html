@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nice Veggie | Autentik Vegetarian</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- FONT INTER -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header id="navbar">
+        <div class="container nav">
+            <div class="logo-wrapper">
+                <img src="images/logo-vegetarian.png" class="logo">
+                <h2>Nice Veggie</h2>
+            </div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">Tentang</a>
+                <a href="#menu">Menu</a>
+                <a href="#order">Order</a>
+                <button onclick="openAdminModal()" class="nav-admin-btn">Admin</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <video autoplay muted loop playsinline preload="auto" class="bg-video">
+            <source src="images/cooking.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="container hero-content" style="position: relative; z-index: 1; color: white;">
+            <h1 style="font-size: clamp(40px, 8vw, 70px); font-weight: 800; line-height: 1.1; margin-bottom: 20px;">
+                Cita Rasa Nusantara<br><span style="color: var(--accent);">Berbasis Nabati</span>
+            </h1>
+            <p style="font-size: 18px; max-width: 600px; margin-bottom: 30px; opacity: 0.9;">
+                Lezat, Sehat, dan Terjangkau. Pengalaman kuliner vegetarian terbaik di Kota Batam sejak 2020.
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+        <div class="container about-wrapper">
+            <div class="about-text">
+                <h2>Tentang Kami</h2>
+                <p>
+                    Nice Veggie adalah usaha kuliner vegetarian rumahan yang berlokasi di Kota Batam dan telah berdiri
+                    selama lebih dari 6 (enam) tahun.
+                    Kami menghadirkan makanan berbasis nabati dengan cita rasa khas nusantara yang tetap lezat, sehat,
+                    dan terjangkau.
+                </p>
+                <p>
+                    Seluruh makanan diproses secara higienis menggunakan bahan pilihan tanpa kandungan hewani, sehingga
+                    cocok untuk pelanggan yang menjalani pola hidup sehat.
+                </p>
+
+                <div
+                    style="margin-top: 30px; padding: 20px; background: var(--bg); border-radius: 15px; border-left: 4px solid var(--accent);">
+                    <p style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">⏰ Jam Operasional:</p>
+                    <p style="font-size: 15px;">
+                        Senin – Jumat : 09.00 – 16.00 WIB<br>
+                        Sabtu : 09.00 – 13.00 WIB<br>
+                        Minggu : Libur
+                    </p>
+                </div>
+            </div>
+            <img src="images/foto-tentang-kami.jpg" alt="Tentang Nice Veggie">
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2>Menu Favorit Kami</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Fallback/Initial Menus -->
+                <div class="card">
+                    <img src="images/bebek-cabe-hijau.jpg"
+                        onclick="openModal(this,'Bebek Cabe Hijau','Rp27.000','Bebek nabati dengan balutan cabe hijau yang gurih dan pedas.')">
+                    <div class="card-body">
+                        <h3>Bebek Cabe Hijau</h3>
+                        <div class="price">Rp27.000</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/lele-penyet.jpg"
+                        onclick="openModal(this,'Lele Penyet','Rp27.000','Ikan lele vegetarian yang krispi dipadu dengan sambal penyet yang nendang.')">
+                    <div class="card-body">
+                        <h3>Lele Penyet</h3>
+                        <div class="price">Rp27.000</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/nasi-goreng.jpg"
+                        onclick="openModal(this,'Nasi Goreng','Rp20.000','Nasi goreng khas nusantara dengan campuran sayuran segar dan bumbu spesial.')">
+                    <div class="card-body">
+                        <h3>Nasi Goreng</h3>
+                        <div class="price">Rp20.000</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/ikan-sambal-kentang.jpg"
+                        onclick="openModal(this,'Ikan Sambal Kentang','Rp27.000','Ikan vegetarian dengan sambal merah merona dan irisan kentang yang lembut.')">
+                    <div class="card-body">
+                        <h3>Ikan Sambal Kentang</h3>
+                        <div class="price">Rp27.000</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/nasi-goreng-olive.jpg"
+                        onclick="openModal(this,'Nasi Goreng Olive','Rp22.000','Nasi goreng sehat dengan aroma buah zaitun yang harum dan menyehatkan.')">
+                    <div class="card-body">
+                        <h3>Nasi Goreng Olive</h3>
+                        <div class="price">Rp22.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER -->
+    <section id="order" class="order">
+        <div class="container">
+            <div class="order-bar">
+                <h2>Kritik dan saran dapat langsung hubungi WhatsApp kami & Menu lainnya tersedia di GoFood 😊</h2>
+                <div class="order-buttons">
+                    <a href="https://wa.me/6282385088481" target="_blank" class="btn">📲 WhatsApp</a>
+                    <a href="https://gofood.co.id/batam/restaurant/nice-vegetarian-perum-griyamas-c313e7e9-1a62-4c50-ac2c-34ca0b643a6d"
+                        target="_blank" class="btn outline">🛵 GoFood</a>
+                </div>
+            </div>
+
+            <div class="location">
+                📍 Komplek Perumahan Griya Mas Blok F No. 8, Sei Panas, Kota Batam
+            </div>
+
+            <div class="map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2861.9299709862257!2d104.03041417496541!3d1.1301865988589859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9890d97fbe63f%3A0x4a13d0ce65b70050!2sGriya%20Mas!5e1!3m2!1sid!2sid!4v1772551361091!5m2!1sid!2sid"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+
+    <!-- MENU MODAL -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <img class="modal-img" id="modalImg">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalPrice" class="price" style="font-size: 24px; margin-bottom: 5px;"></p>
+                <p id="modalDesc" style="font-size: 15px; color: #666; margin-bottom: 20px; line-height: 1.5;"></p>
+                <a id="orderBtn" target="_blank" class="btn-order">
+                    Konfirmasi ketersediaan menu
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN MODAL -->
+    <div id="adminModal" class="modal">
+        <div class="admin-modal-box">
+            <span class="close" onclick="closeAdminModal()" style="top: 10px; right: 15px;">×</span>
+
+            <div id="adminLoginStep">
+                <h3>Akses Admin</h3>
+                <p style="margin-bottom: 20px; font-size: 14px; color: #666;">Masukkan password admin</p>
+
+                <div class="password-wrapper">
+                    <input type="password" id="adminPassword" placeholder="Password">
+                    <span onclick="togglePassword('adminPassword')" class="eye-icon">👁</span>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 10px;">
+                    <button onclick="checkPassword()" class="btn-confirm">Masuk</button>
+                    <button onclick="closeAdminModal()" class="btn-cancel">Batal</button>
+                </div>
+            </div>
+
+            <div id="adminChoiceStep" style="display:none;">
+                <h3>Dashboard Admin</h3>
+                <p style="margin-bottom: 20px; font-size: 14px; color: #666;">Pilih aksi yang ingin dilakukan</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button onclick="openUploadFromAdmin()" class="btn-confirm" style="width: 100%;">Tambah Menu
+                        Baru</button>
+                    <button onclick="runEditHarga()" class="btn-confirm"
+                        style="width: 100%; background: var(--accent);">Edit Harga</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD MODAL -->
+    <div id="uploadModal" class="modal">
+        <div class="admin-modal-box">
+            <span class="close" onclick="closeUpload()" style="top: 10px; right: 15px;">×</span>
+            <h3>Tambah Menu Baru</h3>
+            <br>
+            <div style="text-align: left;">
+                <label style="font-size: 13px; font-weight: 600; color: var(--primary);">Foto Menu</label>
+                <input type="file" id="uploadImage" accept="image/*">
+
+                <label style="font-size: 13px; font-weight: 600; color: var(--primary);">Nama Menu</label>
+                <input type="text" id="uploadNama" placeholder="Contoh: Nasi Bakar">
+
+                <label style="font-size: 13px; font-weight: 600; color: var(--primary);">Harga</label>
+                <input type="number" id="uploadHarga" placeholder="Tanpa titik (Contoh: 25000)">
+
+                <label style="font-size: 13px; font-weight: 600; color: var(--primary);">Deskripsi</label>
+                <textarea id="uploadDeskripsi" placeholder="Masukkan deskripsi menu..."
+                    style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-family: inherit; resize: none; height: 80px;"></textarea>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                <button onclick="submitMenu()" class="btn-confirm" id="btnSubmitMenu">Selesai</button>
+                <button onclick="closeUpload()" class="btn-cancel">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === DATABASE LOKAL (Menyimpan data di browser agar tidak hilang saat direfresh) ===
+        const db = {
+            collection: function (colName) {
+                return {
+                    add: async function (data) {
+                        let items = JSON.parse(localStorage.getItem(colName)) || [];
+                        let id = "doc_" + Date.now();
+                        items.push({ id: id, data: data });
+                        localStorage.setItem(colName, JSON.stringify(items));
+                        return { id: id };
+                    },
+                    orderBy: function (field, direction) {
+                        this._orderByField = field;
+                        this._orderByDir = direction;
+                        return this;
+                    },
+                    get: async function () {
+                        let items = JSON.parse(localStorage.getItem(colName)) || [];
+                        if (this._orderByField) {
+                            items.sort((a, b) => {
+                                let valA = a.data[this._orderByField];
+                                let valB = b.data[this._orderByField];
+                                if (this._orderByDir === "asc") return valA > valB ? 1 : -1;
+                                return valA < valB ? 1 : -1;
+                            });
+                        }
+                        return {
+                            empty: items.length === 0,
+                            forEach: function (callback) {
+                                items.forEach(item => {
+                                    callback({ id: item.id, data: () => item.data });
+                                });
+                            },
+                            docs: items.map(item => ({ id: item.id, data: () => item.data }))
+                        };
+                    },
+                    doc: function (docId) {
+                        return {
+                            update: async function (newData) {
+                                let items = JSON.parse(localStorage.getItem(colName)) || [];
+                                let idx = items.findIndex(i => i.id === docId);
+                                if (idx > -1) {
+                                    items[idx].data = { ...items[idx].data, ...newData };
+                                    localStorage.setItem(colName, JSON.stringify(items));
+                                }
+                            },
+                            delete: async function () {
+                                let items = JSON.parse(localStorage.getItem(colName)) || [];
+                                items = items.filter(i => i.id !== docId);
+                                localStorage.setItem(colName, JSON.stringify(items));
+                            }
+                        };
+                    }
+                };
+            }
+        };
+
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener("scroll", function () {
+            const header = document.querySelector("header");
+            header.classList.toggle("scrolled", window.scrollY > 50);
+        });
+
+        // MODAL CLOSING LOGIC
+        window.onclick = function (event) {
+            let menuModal = document.getElementById("menuModal");
+            let adminModal = document.getElementById("adminModal");
+            let uploadModal = document.getElementById("uploadModal");
+
+            if (event.target == menuModal) closeModal();
+            if (event.target == adminModal) closeAdminModal();
+            if (event.target == uploadModal) closeUpload();
+        }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                closeModal();
+                closeAdminModal();
+                closeUpload();
+            }
+        });
+
+        // PASSWORD TOGGLE
+        function togglePassword(id) {
+            let input = document.getElementById(id);
+            input.type = input.type === "password" ? "text" : "password";
+        }
+
+        // MODAL MENU FUNCTIONS
+        function openModal(img, title, price, desc) {
+            document.getElementById("menuModal").style.display = "block";
+            document.getElementById("modalImg").src = typeof img === 'string' ? img : img.src;
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalPrice").innerText = price;
+            document.getElementById("modalDesc").innerText = desc || "Belum ada deskripsi untuk menu ini.";
+
+            let waNumber = "6282385088481";
+            let message = `Halo Nice Veggie\n\nMenu : ${title}\nHarga : ${price}\n\nApakah masih tersedia?`;
+            document.getElementById("orderBtn").href = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(message);
+            document.body.classList.add("modal-open");
+        }
+
+        function closeModal() {
+            document.getElementById("menuModal").style.display = "none";
+            document.body.classList.remove("modal-open");
+        }
+
+        // ADMIN FUNCTIONS
+        function openAdminModal() {
+            document.getElementById("adminModal").style.display = "block";
+            document.getElementById("adminPassword").value = "";
+            document.getElementById("adminLoginStep").style.display = "block";
+            document.getElementById("adminChoiceStep").style.display = "none";
+            document.body.classList.add("modal-open");
+        }
+
+        function closeAdminModal() {
+            document.getElementById("adminModal").style.display = "none";
+            document.body.classList.remove("modal-open");
+        }
+
+        function checkPassword() {
+            let pin = document.getElementById("adminPassword").value;
+            if (pin === "1234NiceVeggie") {
+                document.getElementById("adminLoginStep").style.display = "none";
+                document.getElementById("adminChoiceStep").style.display = "block";
+            } else {
+                alert("Password salah!");
+            }
+        }
+
+        function openUploadFromAdmin() {
+            closeAdminModal();
+            document.getElementById("uploadModal").style.display = "block";
+            document.body.classList.add("modal-open");
+
+            // Kembalikan tombol ke keadaan semula saat dibuka
+            let btn = document.getElementById("btnSubmitMenu");
+            if (btn) {
+                btn.innerText = "Selesai";
+                btn.disabled = false;
+            }
+        }
+
+        async function runEditHarga() {
+            closeAdminModal();
+            let cards = document.querySelectorAll('.card');
+            for (let card of cards) {
+                let nameEl = card.querySelector('h3');
+                let priceEl = card.querySelector('.price');
+                let imgEl = card.querySelector('img');
+                if (!nameEl || !priceEl) continue;
+
+                let nama = nameEl.innerText;
+                let current = priceEl.innerText.replace(/\D/g, "");
+                let newPrice = prompt(`Menu: ${nama}\nMasukkan harga baru (angka saja):`, current);
+
+                if (newPrice !== null && newPrice !== "") {
+                    if (!/^[0-9]+$/.test(newPrice)) {
+                        alert("Harga harus berupa angka!");
+                        continue;
+                    }
+                    let formatted = "Rp" + parseInt(newPrice).toLocaleString("id-ID");
+                    priceEl.innerText = formatted;
+
+                    // Update harga di fungsi onclick agar pop-up memunculkan harga yang baru
+                    if (imgEl && imgEl.hasAttribute('onclick')) {
+                        let str = imgEl.getAttribute('onclick');
+                        str = str.replace(/(openModal\([^,]+,\s*['"][^'"]+['"],\s*['"])[^'"]+(['"])/, `$1${formatted}$2`);
+                        imgEl.setAttribute('onclick', str);
+                    }
+
+                    // Simpan ke database jika ini menu yang diupload, jika bawaan simpan lokal
+                    let id = card.getAttribute('data-id');
+                    if (id) {
+                        try {
+                            await db.collection("menus").doc(id).update({
+                                harga: parseInt(newPrice)
+                            });
+                        } catch (e) { }
+                    } else {
+                        localStorage.setItem("price_" + nama, newPrice);
+                    }
+                }
+            }
+            alert("Harga berhasil diperbarui!");
+        }
+
+        // UPLOAD FUNCTIONS
+        function closeUpload() {
+            document.getElementById("uploadModal").style.display = "none";
+            document.body.classList.remove("modal-open");
+        }
+
+        // Fungsi kompresi gambar agar berhasil diupload
+        function compressImage(file, maxWidth = 800, quality = 0.7) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                };
+            });
+        }
+
+        async function submitMenu() {
+            let nama = document.getElementById("uploadNama").value;
+            let harga = document.getElementById("uploadHarga").value;
+            let file = document.getElementById("uploadImage").files[0];
+            let deskripsi = document.getElementById("uploadDeskripsi").value;
+
+            if (!nama || !harga || !file) {
+                alert("Mohon lengkapi semua data!");
+                return;
+            }
+
+            let btn = document.getElementById("btnSubmitMenu");
+            let prevText = btn.innerText;
+            btn.innerText = "Mengupload...";
+            btn.disabled = true;
+
+            try {
+                const compressedImage = await compressImage(file);
+                const menuData = {
+                    nama: nama,
+                    harga: parseInt(harga),
+                    deskripsi: deskripsi,
+                    image: compressedImage,
+                    createdAt: Date.now()
+                };
+
+                await db.collection("menus").add(menuData);
+
+                alert("Menu berhasil ditambahkan!");
+                closeUpload();
+                resetForm();
+                loadMenus();
+            } catch (error) {
+                alert("Gagal menambah menu! " + error.message);
+            } finally {
+                btn.innerText = prevText;
+                btn.disabled = false;
+            }
+        }
+
+        function resetForm() {
+            document.getElementById("uploadNama").value = "";
+            document.getElementById("uploadHarga").value = "";
+            document.getElementById("uploadDeskripsi").value = "";
+            document.getElementById("uploadImage").value = "";
+        }
+
+        function addMenuToUI(id, menu) {
+            let grid = document.getElementById("menuGrid");
+            let formattedHarga = "Rp" + parseInt(menu.harga).toLocaleString("id-ID");
+
+            let card = document.createElement("div");
+            card.className = "card";
+            card.setAttribute("data-id", id);
+            card.innerHTML = `
+                <div style="position: relative;">
+                    <img src="${menu.image}" onclick="openModal(this,'${menu.nama}','${formattedHarga}',\`${menu.deskripsi || ''}\`)">
+                    <span class="menu-option" onclick="openDelete('${id}')">×</span>
+                </div>
+                <div class="card-body">
+                    <h3>${menu.nama}</h3>
+                    <div class="price">${formattedHarga}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        }
+
+        async function openDelete(id) {
+            let pass = prompt("Masukkan password untuk menghapus menu:");
+            if (pass === "1234NiceVeggie") {
+                try {
+                    await db.collection("menus").doc(id).delete();
+                    loadMenus();
+                } catch (error) {
+                    alert("Gagal menghapus menu!");
+                }
+            } else if (pass !== null) {
+                alert("Password salah!");
+            }
+        }
+
+        async function loadMenus() {
+            const grid = document.getElementById("menuGrid");
+            if (!grid) return;
+
+            // Update harga untuk menu asli berdasarkan localStorage
+            let htmlCards = grid.querySelectorAll('.card:not([data-id])');
+            htmlCards.forEach(card => {
+                let nameEl = card.querySelector('h3');
+                let priceEl = card.querySelector('.price');
+                let imgEl = card.querySelector('img');
+                if (nameEl && priceEl) {
+                    let savedPrice = localStorage.getItem("price_" + nameEl.innerText);
+                    if (savedPrice) {
+                        let formatted = "Rp" + parseInt(savedPrice).toLocaleString("id-ID");
+                        priceEl.innerText = formatted;
+
+                        // Update juga di fungsi onclick pop-up
+                        if (imgEl && imgEl.hasAttribute('onclick')) {
+                            let str = imgEl.getAttribute('onclick');
+                            str = str.replace(/(openModal\([^,]+,\s*['"][^'"]+['"],\s*['"])[^'"]+(['"])/, `$1${formatted}$2`);
+                            imgEl.setAttribute('onclick', str);
+                        }
+                    }
+                }
+            });
+
+            try {
+                const querySnapshot = await db.collection("menus").orderBy("createdAt", "asc").get();
+
+                // Hapus hanya menu yang didapat dari database sebelumnya (agar menu asli tidak hilang)
+                let dbCards = grid.querySelectorAll('.card[data-id]');
+                dbCards.forEach(c => c.remove());
+
+                querySnapshot.forEach((doc) => {
+                    addMenuToUI(doc.id, doc.data());
+                });
+            } catch (error) {
+                console.warn("Database belum terhubung dengan baik.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadMenus);
+    </script>
+</body>
+
+</html>
